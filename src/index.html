@@ -20,179 +20,175 @@
 		class="max-w-screen-lg min-h-screen flex flex-col mx-auto p-10 bg-bookshelf-light text-bookshelf-dark dark:bg-bookshelf-dark dark:text-bookshelf-light"
 	>
 		<header class="">
-			<h1
-				class="font-semibold text-3xl"
-				style="font-family: Oswald, sans-serif"
-			>
-				Bookshelf App
-			</h1>
+			<nav class="flex flex-col md:flex-row md:items-center gap-4">
+				<h1 class="font-bold text-3xl" style="font-family: Oswald, sans-serif">
+					Bookshelf App
+				</h1>
+				<div class="md:ml-12 flex flex-col md:flex-row gap-4">
+					<a href="#add-book" class="font-semibold text-lg">Tambah Buku</a>
+					<a href="#find-book-title" class="font-semibold text-lg">Cari Buku</a>
+					<a href="#bookshelf" class="font-semibold text-lg"> Rak Buku </a>
+				</div>
+			</nav>
 		</header>
 
-		<main class="w-full max-h-full flex flex-col gap-5 mt-8">
-			<section
-				class="rounded-lg border-2 border-bookshelf-dark dark:border-bookshelf-light p-4"
+		<main class="size-full flex flex-col gap-5 mt-10">
+			<div
+				class="flex flex-col md:flex-row gap-6"
+				aria-label="Container of form for adding book "
 			>
-				<h2 class="font-semibold text-xl">Tambah Buku Baru</h2>
-				<form
-					id="bookForm"
-					data-testid="bookForm"
-					class="mt-4 flex flex-col gap-4"
+				<section
+					id="add-book"
+					class="p-4 border-2 border-bookshelf-dark dark:border-bookshelf-light rounded-xl"
 				>
-					<div class="flex flex-col">
-						<label for="bookFormTitle" class="font-medium">Judul</label>
-						<input
-							class="rounded-lg text-bookshelf-dark p-2"
-							id="bookFormTitle"
-							type="text"
-							required
-							data-testid="bookFormTitleInput"
-						/>
-					</div>
-					<div class="flex flex-col">
-						<label for="bookFormAuthor">Penulis</label>
-						<input
-							class="rounded-lg text-bookshelf-dark p-2"
-							id="bookFormAuthor"
-							type="text"
-							required
-							data-testid="bookFormAuthorInput"
-						/>
-					</div>
-					<div class="flex flex-col">
-						<label for="bookFormYear">Tahun</label>
-						<input
-							class="rounded-lg text-bookshelf-dark p-2"
-							id="bookFormYear"
-							type="number"
-							required
-							data-testid="bookFormYearInput"
-						/>
-					</div>
-					<div>
-						<label for="bookFormIsComplete">Selesai dibaca</label>
-						<input
-							id="bookFormIsComplete"
-							type="checkbox"
-							data-testid="bookFormIsCompleteCheckbox"
-						/>
-					</div>
-					<button
-						class="bg-bookshelf-primary text-bookshelf-dark p-2 rounded-lg font-medium"
-						id="bookFormSubmit"
-						type="submit"
-						data-testid="bookFormSubmitButton"
+					<h2 class="font-semibold text-xl">Tambah Buku Baru</h2>
+					<form
+						id="bookForm"
+						data-testid="bookForm"
+						class="mt-4 flex flex-col gap-4"
 					>
-						Masukkan Buku ke rak <span>Belum selesai dibaca</span>
-					</button>
-				</form>
-			</section>
-
-			<section class="flex flex-col p-4">
-				<h2 class="font-semibold text-xl">Cari Buku</h2>
-				<form
-					id="searchBook"
-					data-testid="searchBookForm"
-					class="mt-4 gap-2 flex flex-col"
-				>
-					<label for="searchBookTitle" class="font-medium">Judul</label>
-					<input
-						class="rounded-lg text-bookshelf-dark p-2"
-						id="searchBookTitle"
-						type="text"
-						data-testid="searchBookFormTitleInput"
-					/>
-					<button
-						class="bg-bookshelf-primary text-bookshelf-dark p-2 rounded-lg font-medium mt-4"
-						id="searchSubmit"
-						type="submit"
-						data-testid="searchBookFormSubmitButton"
-					>
-						Cari
-					</button>
-				</form>
-				<span class="mt-4">Hasil pencarian:</span>
-				<div id="searchResult" class="flex flex-col">
-					Judul buku yang dicari tidak ditemukan
-				</div>
-			</section>
-
-			<section
-				class="rounded-lg border-2 border-bookshelf-dark dark:border-bookshelf-light p-4"
-			>
-				<h2 class="font-semibold text-xl">Belum selesai dibaca</h2>
-
-				<div
-					id="incompleteBookList"
-					data-testid="incompleteBookList"
-					class="mt-4"
-				>
-					<!-- Ini adalah struktur HTML untuk masing-masing buku.
-					Pastikan susunan elemen beserta atribut data-testid menyesuaikan seperti contoh ini. -->
-					<div data-bookid="123123123" data-testid="bookItem">
-						<h3 data-testid="bookItemTitle">Judul Buku 1</h3>
-						<p data-testid="bookItemAuthor">Penulis: Penulis Buku 1</p>
-						<p data-testid="bookItemYear">Tahun: 2030</p>
-						<div class="flex flex-col gap-5 mt-4">
-							<button
-								data-testid="bookItemIsCompleteButton"
-								class="bg-bookshelf-primary text-bookshelf-dark font-medium p-2 rounded-lg"
-							>
-								Selesai dibaca
-							</button>
-							<button
-								data-testid="bookItemDeleteButton"
-								class="border-2 border-bookshelf-primary p-2 rounded-lg"
-							>
-								Hapus Buku
-							</button>
-							<button
-								data-testid="bookItemEditButton"
-								class="border-2 border-bookshelf-primary p-2 rounded-lg"
-							>
-								Edit Buku
-							</button>
+						<div class="flex flex-col">
+							<label for="bookFormTitle" class="font-medium">Judul</label>
+							<input
+								class="rounded-lg text-bookshelf-dark p-4 h-10"
+								id="bookFormTitle"
+								type="text"
+								required
+								data-testid="bookFormTitleInput"
+							/>
+						</div>
+						<div class="flex flex-col">
+							<label for="bookFormAuthor">Penulis</label>
+							<input
+								class="rounded-lg text-bookshelf-dark p-4 h-10"
+								id="bookFormAuthor"
+								type="text"
+								required
+								data-testid="bookFormAuthorInput"
+							/>
+						</div>
+						<div class="flex flex-col">
+							<label for="bookFormYear">Tahun</label>
+							<input
+								class="rounded-lg text-bookshelf-dark p-4 h-10"
+								id="bookFormYear"
+								type="number"
+								required
+								data-testid="bookFormYearInput"
+							/>
+						</div>
+						<div>
+							<label for="bookFormIsComplete">Selesai dibaca</label>
+							<input
+								class="rounded-lg"
+								id="bookFormIsComplete"
+								type="checkbox"
+								data-testid="bookFormIsCompleteCheckbox"
+							/>
+						</div>
+						<button
+							class="p-4 bg-bookshelf-primary text-bookshelf-dark rounded-lg font-medium text-lg"
+							id="bookFormSubmit"
+							type="submit"
+							data-testid="bookFormSubmitButton"
+						>
+							Masukkan buku ke rak
+						</button>
+					</form>
+				</section>
+				<section class="md:ml-6 p-4">
+					<h2 class="font-semibold text-xl">Panduan Tambah Buku Baru</h2>
+					<div class="mt-4 flex flex-col gap-4">
+						<div aria-label="Book Title explanation">
+							<h3 class="font-medium text-lg">Judul</h3>
+							<p>
+								Judul dari buku. Boleh huruf besar/kapital semua atau huruf
+								besar di tiap awal kata
+							</p>
+						</div>
+						<div aria-label="Book Author explanation">
+							<h3 class="font-medium text-lg">Penulis</h3>
+							<p>
+								Nama penulis dari buku. Jika ada dua penulis, cukup ditulis
+								salah satu saja
+							</p>
+						</div>
+						<div aria-label="Book Release Year explanation">
+							<h3 class="font-medium text-lg">Tahun</h3>
+							<p>
+								Tahun buku diterbitkan. Format tahun adalah angka 4 digit, misal
+								2000
+							</p>
+						</div>
+						<div aria-label="Book Release Year explanation">
+							<h3 class="font-medium text-lg">Selesai dibaca</h3>
+							<p>
+								Checkbox/kotak centang yang menandakan buku sudah selesai. Jika
+								buku belum selesai dibaca, biarkan kotaknya kosong
+							</p>
 						</div>
 					</div>
+				</section>
+			</div>
+			<div class="flex flex-col">
+				<section class="flex flex-col">
+					<h2 class="font-semibold text-xl">Cari Buku</h2>
+					<form
+						id="searchBook"
+						data-testid="searchBookForm"
+						class="mt-4 gap-2 flex flex-col"
+					>
+						<label for="searchBookTitle" class="font-medium">Judul</label>
+						<input
+							class="rounded-lg text-bookshelf-dark p-2"
+							id="searchBookTitle"
+							type="text"
+							data-testid="searchBookFormTitleInput"
+						/>
+						<button
+							class="bg-bookshelf-primary text-bookshelf-dark p-2 rounded-lg font-medium text-lg mt-4"
+							id="searchSubmit"
+							type="submit"
+							data-testid="searchBookFormSubmitButton"
+						>
+							Cari Judul Buku
+						</button>
+					</form>
+					<span class="mt-4">Hasil pencarian:</span>
+					<div id="searchBookResult" class="flex flex-col"></div>
+				</section>
+			</div>
+			<div class="flex flex-col">
+				<h2 class="font-semibold text-2xl">Rak Buku</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+					<section class="">
+						<h3
+							class="font-semibold text-xl text-bookshelf-light dark:text-bookshelf-dark rounded-lg bg-bookshelf-dark dark:bg-bookshelf-light p-4"
+						>
+							📖 Belum selesai dibaca
+						</h3>
+						<div
+							id="incompleteBookList"
+							data-testid="incompleteBookList"
+							class="flex flex-col gap-4 mt-4"
+							aria-label="Container for the list of books not yet finished reading"
+						></div>
+					</section>
+					<section class="">
+						<h3
+							class="font-semibold text-xl text-bookshelf-light dark:text-bookshelf-dark rounded-lg bg-bookshelf-dark dark:bg-bookshelf-light p-4"
+						>
+							📚 Selesai dibaca
+						</h3>
+						<div
+							id="completeBookList"
+							data-testid="completeBookList"
+							class="flex flex-col gap-4 mt-4"
+							aria-label="Container for the list of books not yet finished reading"
+						></div>
+					</section>
 				</div>
-			</section>
-
-			<section
-				class="rounded-lg border-2 border-bookshelf-dark dark:border-bookshelf-light p-4"
-			>
-				<h2 class="font-semibold text-xl">Selesai dibaca</h2>
-
-				<div id="completeBookList" data-testid="completeBookList" class="mt-4">
-					<!-- 
-            Ini adalah struktur HTML untuk masing-masing buku.
-            Pastikan susunan elemen beserta atribut data-testid menyesuaikan seperti contoh ini.
-          -->
-					<div data-bookid="456456456" data-testid="bookItem">
-						<h3 data-testid="bookItemTitle">Judul Buku 2</h3>
-						<p data-testid="bookItemAuthor">Penulis: Penulis Buku 2</p>
-						<p data-testid="bookItemYear">Tahun: 2030</p>
-						<div class="flex flex-col gap-5 mt-5">
-							<button
-								data-testid="bookItemIsCompleteButton"
-								class="p-2 rounded-lg border-2 border-bookshelf-primary"
-							>
-								Selesai dibaca
-							</button>
-							<button
-								data-testid="bookItemDeleteButton"
-								class="p-2 rounded-lg border-2 border-bookshelf-primary"
-							>
-								Hapus Buku
-							</button>
-							<button
-								data-testid="bookItemEditButton"
-								class="p-2 rounded-lg border-2 border-bookshelf-primary"
-							>
-								Edit Buku
-							</button>
-						</div>
-					</div>
-				</div>
-			</section>
+			</div>
 		</main>
 		<footer class="flex flex-col md:flex-row mt-16 gap-6">
 			<div class="flex flex-col">

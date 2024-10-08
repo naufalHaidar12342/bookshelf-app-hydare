@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./output.css" />
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap"
+			rel="stylesheet"
+		/> -->
+		<title>Bookshelf App</title>
+
+		<!-- Impor script kamu di sini -->
+		<!-- Lampirkan `defer` jika pemanggilan dilakukan dalam <head> -->
+		<script defer src="main.js"></script>
+	</head>
+	<body
+		class="max-w-screen-lg min-h-screen flex flex-col mx-auto p-10 bg-bookshelf-light text-bookshelf-dark dark:bg-bookshelf-dark dark:text-bookshelf-light"
+	>
+		<header class="">
+			<h1
+				class="font-semibold text-3xl"
+				style="font-family: Oswald, sans-serif"
+			>
+				Bookshelf App
+			</h1>
+		</header>
+
+		<main class="w-full h-full flex flex-col gap-5 mt-8">
+			<section
+				class="rounded-lg border-2 border-bookshelf-dark dark:border-bookshelf-light p-4"
+			>
+				<h2 class="font-semibold text-xl">Tambah Buku Baru</h2>
+				<form
+					id="bookForm"
+					data-testid="bookForm"
+					class="mt-4 flex flex-col gap-4"
+				>
+					<div class="flex flex-col">
+						<label for="bookFormTitle" class="font-medium">Judul</label>
+						<input
+							class="rounded-lg text-bookshelf-dark p-2"
+							id="bookFormTitle"
+							type="text"
+							required
+							data-testid="bookFormTitleInput"
+						/>
+					</div>
+					<div class="flex flex-col">
+						<label for="bookFormAuthor">Penulis</label>
+						<input
+							class="rounded-lg text-bookshelf-dark p-2"
+							id="bookFormAuthor"
+							type="text"
+							required
+							data-testid="bookFormAuthorInput"
+						/>
+					</div>
+					<div class="flex flex-col">
+						<label for="bookFormYear">Tahun</label>
+						<input
+							class="rounded-lg text-bookshelf-dark p-2"
+							id="bookFormYear"
+							type="number"
+							required
+							data-testid="bookFormYearInput"
+						/>
+					</div>
+					<div>
+						<label for="bookFormIsComplete">Selesai dibaca</label>
+						<input
+							id="bookFormIsComplete"
+							type="checkbox"
+							data-testid="bookFormIsCompleteCheckbox"
+						/>
+					</div>
+					<button
+						class="bg-bookshelf-primary text-bookshelf-dark p-2 rounded-lg font-medium"
+						id="bookFormSubmit"
+						type="submit"
+						data-testid="bookFormSubmitButton"
+					>
+						Masukkan Buku ke rak <span>Belum selesai dibaca</span>
+					</button>
+				</form>
+			</section>
+
+			<section class="flex flex-col p-4">
+				<h2 class="font-semibold text-xl">Cari Buku</h2>
+				<form
+					id="searchBook"
+					data-testid="searchBookForm"
+					class="mt-4 gap-2 flex flex-col"
+				>
+					<label for="searchBookTitle" class="font-medium">Judul</label>
+					<input
+						class="rounded-lg text-bookshelf-dark p-2"
+						id="searchBookTitle"
+						type="text"
+						data-testid="searchBookFormTitleInput"
+					/>
+					<button
+						class="bg-bookshelf-primary text-bookshelf-dark p-2 rounded-lg font-medium mt-4"
+						id="searchSubmit"
+						type="submit"
+						data-testid="searchBookFormSubmitButton"
+					>
+						Cari
+					</button>
+				</form>
+				<span class="mt-4">Hasil pencarian:</span>
+				<div id="searchResult" class="flex flex-col">
+					Judul buku yang dicari tidak ditemukan
+				</div>
+			</section>
+
+			<section
+				class="rounded-lg border-2 border-bookshelf-dark dark:border-bookshelf-light p-4"
+			>
+				<h2 class="font-semibold text-xl">Belum selesai dibaca</h2>
+
+				<div
+					id="incompleteBookList"
+					data-testid="incompleteBookList"
+					class="mt-4"
+				>
+					<!-- Ini adalah struktur HTML untuk masing-masing buku.
+					Pastikan susunan elemen beserta atribut data-testid menyesuaikan seperti contoh ini. -->
+					<div data-bookid="123123123" data-testid="bookItem">
+						<h3 data-testid="bookItemTitle">Judul Buku 1</h3>
+						<p data-testid="bookItemAuthor">Penulis: Penulis Buku 1</p>
+						<p data-testid="bookItemYear">Tahun: 2030</p>
+						<div class="flex flex-col gap-5 mt-4">
+							<button
+								data-testid="bookItemIsCompleteButton"
+								class="bg-bookshelf-primary text-bookshelf-dark font-medium p-2 rounded-lg"
+							>
+								Selesai dibaca
+							</button>
+							<button
+								data-testid="bookItemDeleteButton"
+								class="border-2 border-bookshelf-primary p-2 rounded-lg"
+							>
+								Hapus Buku
+							</button>
+							<button
+								data-testid="bookItemEditButton"
+								class="border-2 border-bookshelf-primary p-2 rounded-lg"
+							>
+								Edit Buku
+							</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section
+				class="rounded-lg border-2 border-bookshelf-dark dark:border-bookshelf-light p-4"
+			>
+				<h2 class="font-semibold text-xl">Selesai dibaca</h2>
+
+				<div id="completeBookList" data-testid="completeBookList" class="mt-4">
+					<!-- 
+            Ini adalah struktur HTML untuk masing-masing buku.
+            Pastikan susunan elemen beserta atribut data-testid menyesuaikan seperti contoh ini.
+          -->
+					<div data-bookid="456456456" data-testid="bookItem">
+						<h3 data-testid="bookItemTitle">Judul Buku 2</h3>
+						<p data-testid="bookItemAuthor">Penulis: Penulis Buku 2</p>
+						<p data-testid="bookItemYear">Tahun: 2030</p>
+						<div class="flex flex-col gap-5 mt-5">
+							<button
+								data-testid="bookItemIsCompleteButton"
+								class="p-2 rounded-lg border-2 border-bookshelf-primary"
+							>
+								Selesai dibaca
+							</button>
+							<button
+								data-testid="bookItemDeleteButton"
+								class="p-2 rounded-lg border-2 border-bookshelf-primary"
+							>
+								Hapus Buku
+							</button>
+							<button
+								data-testid="bookItemEditButton"
+								class="p-2 rounded-lg border-2 border-bookshelf-primary"
+							>
+								Edit Buku
+							</button>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer class="flex flex-col md:flex-row mt-16 gap-6">
+			<div class="flex flex-col">
+				<span
+					>Bookshelf App Submission oleh
+					<a
+						href="https://github.com/naufalHaidar12342"
+						target="_blank"
+						class="hover:underline decoration-bookshelf-primary"
+					>
+						Hydare
+					</a>
+				</span>
+
+				<button
+					id="theme-toggle"
+					class="mt-4 p-2 rounded-lg bg-bookshelf-dark text-bookshelf-light dark:bg-bookshelf-light dark:text-bookshelf-dark"
+				>
+					Ganti tema
+				</button>
+			</div>
+			<div class="w-full">
+				<img
+					class="w-36 h-36"
+					loading="lazy"
+					style="object-fit: contain; fill-rule: initial"
+					src="/media/undraw_bookshelves_re_lxoy.svg"
+					srcset="/media/undraw_bookshelves_re_lxoy.svg 100vw /media/undraw_bookshelves_re_lxoy.svg 75vw"
+				/>
+			</div>
+		</footer>
+	</body>
+</html>

@@ -2,10 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap");
+
 /* // <uniquifier>: Use a unique and descriptive class name
 // <weight>: Use a value from 200 to 700 */
 * {
-	@apply transition-colors duration-75;
+	@apply transition-colors duration-75 ease-in;
 }
 body {
 	font-family: "Montserrat", sans-serif;
@@ -17,7 +18,7 @@ body {
 
 @font-face {
 	font-family: "Oswald", sans-serif;
-	src: url("/fonts/Oswald-Google-Fonts.woff2");
+	src: url("/fonts/Oswald-Google-Fonts.woff2") format("woff2");
 }
 @layer utilities {
 }

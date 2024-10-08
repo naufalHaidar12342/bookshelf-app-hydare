@@ -24,15 +24,25 @@ Untuk mempermudah penilaian submission yang dikirim, Anda perlu memahami ketentu
 
 ```html
 <div data-bookid="{{ ID_buku }}" data-testid="bookItem">
-  <h3 data-testid="bookItemTitle">{{ judul_buku }}</h3>
-  <p data-testid="bookItemAuthor">Penulis: {{ penulis_buku }}</p>
-  <p data-testid="bookItemYear">Tahun: {{ tahun_rilis_buku }}</p>
-  <div>
-    <button data-testid="bookItemIsCompleteButton">{{ tombol_untuk_ubah_kondisi }}</button>
-    <button data-testid="bookItemDeleteButton">{{ tombol_untuk_hapus }}</button>
-    <button data-testid="bookItemEditButton">{{ tombol_untuk_edit }}</button>
-  </div>
+	<h3 data-testid="bookItemTitle">{{ judul_buku }}</h3>
+	<p data-testid="bookItemAuthor">Penulis: {{ penulis_buku }}</p>
+	<p data-testid="bookItemYear">Tahun: {{ tahun_rilis_buku }}</p>
+	<div>
+		<button data-testid="bookItemIsCompleteButton">
+			{{ tombol_untuk_ubah_kondisi }}
+		</button>
+		<button data-testid="bookItemDeleteButton">{{ tombol_untuk_hapus }}</button>
+		<button data-testid="bookItemEditButton">{{ tombol_untuk_edit }}</button>
+	</div>
 </div>
 ```
 
 Selamat mengerjakan dan sukses selalu!
+
+## Menjalankan Project di Komputer Anda
+
+Untuk menjalankan ini, Anda perlu menggunakan Live Server extension dari Visual Studio Code. Karena saya menggunakan Tailwind CSS, Anda perlu menjalankan perintah berikut di terminal dalam Visual Studio Code
+
+`npx tailwindcss -i ./src/styles.css -o ./src/output.css --minify --watch`
+
+Perintah ini akan menjalankan _build process_ melalui _Tailwind CLI_ yang menggunakan `styles.css` sebagai input filenya dan menghasilkan _output_ dalam file `output.css` sekaligus memperkecil ukuran file _css_
