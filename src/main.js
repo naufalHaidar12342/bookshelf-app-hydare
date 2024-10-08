@@ -31,6 +31,7 @@ const addNewBookIsComplete = document.getElementById("bookFormIsComplete");
 const searchBookForm = document.getElementById("searchBook");
 const searchBookTitle = document.getElementById("searchBookTitle");
 const searchBookResult = document.getElementById("searchBookResult");
+searchBookResult.classList.add("flex", "flex-col", "mt-8");
 
 /* initialize variables for each elements in "Belum selesai dibaca" 
 (have not finished reading it) shelf */
@@ -79,18 +80,20 @@ function createBookObject(
 function findBookTitle() {
 	const bookTitleRequest = searchBookTitle.value.toLowerCase();
 	const searchResultContainer = document.createElement("div");
-	searchResultContainer.classList.add(
-		"flex",
-		"flex-col",
-		"p-4",
-		"mt-4",
-		"border-2",
-		"border-bookshelf-dark",
-		"dark:border-bookshelf-light",
-		"rounded-lg"
-	);
+	// searchResultContainer.classList.add(
+	// 	"flex",
+	// 	"flex-col",
+	// 	"p-4",
+	// 	"mt-4",
+	// 	"border-2",
+	// 	"border-bookshelf-dark",
+	// 	"dark:border-bookshelf-light",
+	// 	"rounded-lg"
+	// );
+
+	// create descriptive text as heading for search result section
 	const searchResultTitle = document.createElement("span");
-	searchResultTitle.classList.add("font-semibold");
+	searchResultTitle.classList.add("font-semibold", "mt-4");
 	searchResultTitle.textContent = `Hasil pencarian untuk judul buku: ${bookTitleRequest}`;
 	searchResultContainer.appendChild(searchResultTitle);
 
@@ -120,33 +123,48 @@ function findBookTitle() {
 	} else {
 		// Create HTML components for the filtered books
 		filteredBooks.forEach((book) => {
+			const searchResultItemContainer = document.createElement("div");
+			searchResultItemContainer.classList.add(
+				"flex",
+				"flex-col",
+				"p-4",
+				"mt-4",
+				"border-2",
+				"border-bookshelf-dark",
+				"dark:border-bookshelf-light",
+				"rounded-lg"
+			);
+
 			let foundBookTitle = document.createElement("p");
-			foundBookTitle.textContent = `Title: ${book.bookTitle}`;
+			foundBookTitle.textContent = `Judul: ${book.bookTitle}`;
 
 			let foundBookAuthor = document.createElement("p");
 			foundBookAuthor.textContent = `Author: ${book.bookAuthor}`;
 
 			let foundBookYear = document.createElement("p");
-			foundBookYear.textContent = `Year: ${book.bookYear}`;
+			foundBookYear.textContent = `Tahun: ${book.bookYear}`;
 
 			let bookReadingProgress = document.createElement("p");
 			bookReadingProgress.textContent = `Selesai dibaca: ${
 				book.isComplete ? "Ya" : "Belum"
 			}`;
 
-			searchResultContainer.append(
+			// wrap each of the book details in searchResultItemContainer
+			searchResultItemContainer.append(
 				foundBookTitle,
 				foundBookAuthor,
 				foundBookYear,
 				bookReadingProgress
 			);
 
+			searchResultContainer.append(searchResultItemContainer);
+
 			searchBookResult.append(searchResultContainer);
 		});
 	}
 }
 
-function findBookIdForCompleteBookshelf(bookId) {
+function findBookUniqueIdFromBookshelf(bookId) {
 	for (const book of arrayOfBooks) {
 		if (book.bookUniqueId === bookId) {
 			return book;
@@ -247,6 +265,24 @@ function generateBooks(bookObject) {
 		addBookToCompleteBookshelf(bookUniqueId);
 	});
 
+	const incompleteBookButton = document.createElement("button");
+	incompleteBookButton.innerText = "Belum Selesai Dibaca";
+	incompleteBookButton.setAttribute(
+		"data-testid",
+		"bookItemIsIncompleteButton"
+	);
+	incompleteBookButton.classList.add(
+		"border-2",
+		"border-bookshelf-light",
+		"rounded-md",
+		"font-medium",
+		"text-lg",
+		"p-2"
+	);
+	incompleteBookButton.addEventListener("click", function () {
+		addBookToUnfinishedBookshelf(bookUniqueId);
+	});
+
 	// set up the buttons container
 	const buttonsContainer = document.createElement("div");
 	buttonsContainer.classList.add(
@@ -256,7 +292,13 @@ function generateBooks(bookObject) {
 		"gap-2",
 		"mt-2"
 	);
-	buttonsContainer.append(completeBookButton, editButton, deleteButton);
+
+	// add conditional rendering for button based on book progress
+	if (isComplete) {
+		buttonsContainer.append(incompleteBookButton, editButton, deleteButton);
+	} else {
+		buttonsContainer.append(completeBookButton, editButton, deleteButton);
+	}
 
 	// set up the book item container
 	const bookItemContainer = document.createElement("div");
@@ -296,7 +338,7 @@ function addBooks() {
 }
 
 function addBookToCompleteBookshelf(bookUniqueId) {
-	const bookTarget = findBookIdForCompleteBookshelf(bookUniqueId);
+	const bookTarget = findBookUniqueIdFromBookshelf(bookUniqueId);
 	if (bookTarget == null) {
 		return;
 	}
@@ -306,11 +348,11 @@ function addBookToCompleteBookshelf(bookUniqueId) {
 }
 
 function addBookToUnfinishedBookshelf(bookUniqueId) {
-	const bookTarget = findBookIndex(bookUniqueId);
-	if (bookTarget == -1) {
+	const bookTarget = findBookUniqueIdFromBookshelf(bookUniqueId);
+	if (bookTarget == null) {
 		return;
 	}
-	arrayOfBooks.splice(bookTarget, 1);
+	bookTarget.isComplete = false;
 	document.dispatchEvent(new Event(RENDER_BOOKSHELF));
 	saveBook();
 }
