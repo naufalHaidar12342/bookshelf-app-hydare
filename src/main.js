@@ -61,18 +61,12 @@ function generateUniqueIdForBook() {
 	return timestamp;
 }
 
-function createBookObject(
-	bookUniqueId,
-	bookTitle,
-	bookAuthor,
-	bookYear,
-	isComplete
-) {
+function createBookObject(id, title, author, year, isComplete) {
 	return {
-		bookUniqueId,
-		bookTitle,
-		bookAuthor,
-		bookYear,
+		id,
+		title,
+		author,
+		year,
 		isComplete,
 	};
 }
@@ -102,7 +96,7 @@ function findBookTitle() {
 
 	// Filter the arrayOfBooks to find matching titles (case-insensitive)
 	let filteredBooks = arrayOfBooks.filter((book) =>
-		book.bookTitle.toLowerCase().includes(bookTitleRequest)
+		book.title.toLowerCase().includes(bookTitleRequest)
 	);
 
 	// Clear the search results
@@ -136,13 +130,13 @@ function findBookTitle() {
 			);
 
 			let foundBookTitle = document.createElement("p");
-			foundBookTitle.textContent = `Judul: ${book.bookTitle}`;
+			foundBookTitle.textContent = `Judul: ${book.title}`;
 
 			let foundBookAuthor = document.createElement("p");
-			foundBookAuthor.textContent = `Author: ${book.bookAuthor}`;
+			foundBookAuthor.textContent = `Author: ${book.author}`;
 
 			let foundBookYear = document.createElement("p");
-			foundBookYear.textContent = `Tahun: ${book.bookYear}`;
+			foundBookYear.textContent = `Tahun: ${book.year}`;
 
 			let bookReadingProgress = document.createElement("p");
 			bookReadingProgress.textContent = `Selesai dibaca: ${
@@ -166,7 +160,7 @@ function findBookTitle() {
 
 function findBookUniqueIdFromBookshelf(bookId) {
 	for (const book of arrayOfBooks) {
-		if (book.bookUniqueId === bookId) {
+		if (book.id === bookId) {
 			return book;
 		}
 	}
@@ -175,7 +169,7 @@ function findBookUniqueIdFromBookshelf(bookId) {
 
 function findBookIndex(bookUniqueId) {
 	for (const index in arrayOfBooks) {
-		if (arrayOfBooks[index].bookUniqueId === bookUniqueId) {
+		if (arrayOfBooks[index].id === bookUniqueId) {
 			return index;
 		}
 	}
@@ -203,20 +197,19 @@ function loadBooksFromLocalStorage() {
 }
 
 function generateBooks(bookObject) {
-	const { bookUniqueId, bookTitle, bookAuthor, bookYear, isComplete } =
-		bookObject;
+	const { id, title, author, year, isComplete } = bookObject;
 
 	const textTitle = document.createElement("h3");
-	textTitle.innerText = bookTitle;
+	textTitle.innerText = title;
 	textTitle.setAttribute("data-testid", "bookItemTitle");
 	textTitle.classList.add("font-semibold");
 
 	const textAuthor = document.createElement("p");
-	textAuthor.innerText = `Penulis: ${bookAuthor}`;
+	textAuthor.innerText = `Penulis: ${author}`;
 	textAuthor.setAttribute("data-testid", "bookItemAuthor");
 
 	const textYear = document.createElement("p");
-	textYear.innerText = `Tahun: ${bookYear}`;
+	textYear.innerText = `Tahun: ${year}`;
 	textYear.setAttribute("data-testid", "bookItemYear");
 
 	const editButton = document.createElement("button");
@@ -247,7 +240,7 @@ function generateBooks(bookObject) {
 	);
 
 	deleteButton.addEventListener("click", function () {
-		deleteBook(bookUniqueId);
+		deleteBook(id);
 	});
 
 	const completeBookButton = document.createElement("button");
@@ -262,7 +255,7 @@ function generateBooks(bookObject) {
 		"p-2"
 	);
 	completeBookButton.addEventListener("click", function () {
-		addBookToCompleteBookshelf(bookUniqueId);
+		addBookToCompleteBookshelf(id);
 	});
 
 	const incompleteBookButton = document.createElement("button");
@@ -280,7 +273,7 @@ function generateBooks(bookObject) {
 		"p-2"
 	);
 	incompleteBookButton.addEventListener("click", function () {
-		addBookToUnfinishedBookshelf(bookUniqueId);
+		addBookToUnfinishedBookshelf(id);
 	});
 
 	// set up the buttons container
@@ -311,7 +304,7 @@ function generateBooks(bookObject) {
 		"rounded-lg"
 	);
 	bookItemContainer.setAttribute("data-testid", "bookItem");
-	bookItemContainer.setAttribute("data-bookid", bookUniqueId);
+	bookItemContainer.setAttribute("data-bookid", id);
 	bookItemContainer.append(textTitle, textAuthor, textYear, buttonsContainer);
 
 	return bookItemContainer;
