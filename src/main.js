@@ -313,7 +313,7 @@ function generateBooks(bookObject) {
 function addBooks() {
 	const bookTitle = addNewBookTitle.value;
 	const bookAuthor = addNewBookAuthor.value;
-	const bookYear = addNewBookYear.value;
+	const bookYear = Number(addNewBookYear.value);
 	const bookProgress = addNewBookIsComplete.checked;
 
 	const generatedUniqueId = generateUniqueIdForBook();
